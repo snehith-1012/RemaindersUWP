@@ -1,0 +1,173 @@
+<RelativePanel Margin="0,7,0,0" Background="#03203C"  Grid.Row="2" >
+
+                        <Border Name="RemainderTextBox1" RelativePanel.AlignBottomWithPanel="True">
+                            <TextBox VerticalAlignment="Stretch" FontSize="17" PlaceholderText="Enter the description" PointerEntered="RemainderDescription_PointerEntered" BorderBrush="Black" BorderThickness="1,1,2,1"  Name="RemainderDescription"  Width="340" >
+                            </TextBox>
+                        </Border>
+                        <Canvas RelativePanel.RightOf="RemainderTextBox1" x:Name="FirstCanvas" >
+                                <RelativePanel
+                            BorderBrush="Black"
+                            BorderThickness="0"
+                            Name="PeopleRelativePanel"
+                            Visibility="Collapsed"
+                            >
+                                <Button 
+                                    Name="People"
+                                    Content="&#xE910;" 
+                                    FontFamily="Segoe MDL2 Assets"  
+                                    FontSize="23"
+                                    Click="People_Click"
+                                    Foreground="White"
+                                        Canvas.ZIndex="100"
+                                    VerticalAlignment="Stretch"
+                                    
+                                >
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </Button.Resources>
+                                    <Button.Flyout>
+                                        <Flyout Placement="Bottom">
+                                            <StackPanel >
+                                                <AutoSuggestBox Name="MyAutoSuggestBox"
+                                                            PlaceholderText="Search"
+                                                            TextChanged="MyAutoSuggestBox_TextChanged"
+                                                            SuggestionChosen="MyAutoSuggestBox_SuggestionChosen"
+                                                            Width="150"
+                                                            ItemsSource="{x:Bind NotAddedPersons,Mode=OneWay}"
+                                                            GotFocus="MyAutoSuggestBox_GotFocus"
+                                                            Background="Blue"
+                                                            Margin="-13"
+                                                            CanBeScrollAnchor="True"
+                                                            MaxSuggestionListHeight="200"
+                                                            >
+                                                    <AutoSuggestBox.ItemTemplate>
+                                                        <DataTemplate x:DataType="local:Person">
+                                                            <Grid Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                                                                <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </AutoSuggestBox.ItemTemplate>
+                                                </AutoSuggestBox>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+
+                                </Button>
+                                <Button Foreground="White"
+                                    Name="PeopleRemoveButton"
+                                    FontWeight="SemiBold"
+                                    Margin="-35,-25,0,0"
+                                            Width="25"
+                                            Height="25"
+                                    Visibility="Collapsed"
+                                    CornerRadius="100"
+                                    RelativePanel.AlignHorizontalCenterWith="SetTime"
+                                    RelativePanel.AlignVerticalCenterWith="SetTime"
+                                    VerticalAlignment="Top" 
+                                    FontSize="17"
+                                    Background="Red"
+                                    Click="PeopleRemoveButton_Click"
+                                    PointerEntered="PeopleRemoveButton_PointerEntered"
+                                    PointerExited="PeopleRemoveButton_PointerExited"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                            Canvas.ZIndex="150"
+                                    >
+                                        <Button.Content>
+                                            <TextBlock Margin="-5" Name="NumberOrCross" Text="" />
+                                        </Button.Content>
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Red"/>
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="{x:Bind peopleIncludedforOneRemainder,Mode=TwoWay}" />
+                                        </ToolTipService.ToolTip>
+                                    </Button>
+                                 <Button
+                                        RelativePanel.RightOf="People"
+                                        BorderBrush="Black"
+                                        Foreground="White"
+                                        Visibility="Collapsed"
+                                        Name="SetTime"  
+                                        Content="&#xEC92;" 
+                                        FontFamily="Segoe MDL2 Assets"  
+                                        FontSize="25" 
+                                        VerticalAlignment="Stretch"
+                                        BorderThickness="2,0,0,0"
+                                        Canvas.ZIndex="100"
+                                        HorizontalContentAlignment="Center"
+                                    >
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                        <Button.Flyout>
+                                            <Flyout x:Name="DateAndTimeFlyout">
+                                                <Border Margin="-12" Background="#352842">
+                                                    <StackPanel  Orientation="Vertical"  Margin="10" >
+                                                        <Border Margin="0,10,0,10" Background="Orange" BorderBrush="Black" BorderThickness="2" >
+                                                            <TextBlock FontWeight="SemiBold" Margin="5" Foreground="Black" Name="DateAndTimeDisplay" FontSize="15"   Text="" />
+                                                        </Border>
+                                                        <CalendarView Background="Orange" SelectionMode="Single" Name="CalendarListView" SelectedDatesChanged="CalendarListView_SelectedDatesChanged"/>
+
+                                                        <TimePicker Background="Orange" TimeChanged="SetTime1_TimeChanged" Name="SetTime1"  Margin="0,10,0,10" />
+                                                        <Grid Background="Orange">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="1*"/>
+                                                                <ColumnDefinition Width="1*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1"  Click="SaveDate_Click" Name="SaveDate" Content="Save" HorizontalAlignment="Stretch" />
+                                                            <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1" Content="Delete" Grid.Column="1" HorizontalAlignment="Stretch" />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Flyout>
+                                        </Button.Flyout>
+
+                                    </Button>
+                                </RelativePanel>
+                        </Canvas>
+                        <Button
+                            FontSize="17"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Visibility="Collapsed"
+                            Name="RemainderSetButton"
+                            Content="Set" 
+                            Click="RemainderSetButton_Click"  
+                            Width="68"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="2,1,1,1"
+                            RelativePanel.AlignRightWithPanel="True"
+                         >
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                        </Button>
+                    </RelativePanel>
