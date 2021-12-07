@@ -25,7 +25,18 @@
             Content="&#xE916;"
                                           
             CornerRadius="15"
-            />
+            >
+            <Button.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#15202B" />
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </Button.Resources>
+        </Button>
         <SplitView x:ConnectionId='3' 
             Background="#273341"
             Grid.Row="1" 
@@ -57,8 +68,8 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <Border x:ConnectionId='52' Name="BorderForMe" Background="#15202B" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black" >
-                            <Button x:ConnectionId='57' HorizontalAlignment="Stretch"                      Name="Forme" Foreground="White"  Content="For me" VerticalAlignment="Center">
+                        <Border x:ConnectionId='57' Name="BorderForMe" Background="#15202B" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black" >
+                            <Button x:ConnectionId='62' HorizontalAlignment="Stretch"                      Name="Forme" Foreground="White"  Content="For me" VerticalAlignment="Center">
                                 <Button.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
@@ -70,8 +81,8 @@
                                 </Button.Resources>
                             </Button>
                         </Border>
-                        <Border x:ConnectionId='53'  Name="BorderForAssignedToOthers" Background="#15202B" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black"  Grid.Column="1">
-                            <Button x:ConnectionId='56'                        Name="AssignedToOthers" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  Content="Assigned to Others">
+                        <Border x:ConnectionId='58'  Name="BorderForAssignedToOthers" Background="#15202B" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black"  Grid.Column="1">
+                            <Button x:ConnectionId='61'                        Name="AssignedToOthers" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  Content="Assigned to Others">
                                 <Button.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
@@ -83,11 +94,11 @@
                                 </Button.Resources>
                             </Button>
                         </Border>
-                        <TextBlock x:ConnectionId='54' FontWeight="Bold" Name="FormeIsSelected" HorizontalAlignment="Center" Visibility="Collapsed"  Height="2" Foreground="White" FontSize="2" Grid.Row="1" Text="--------------------------------------------------------------------------------------" />
-                        <TextBlock x:ConnectionId='55' FontWeight="Bold" Name="AssignedtoOthersIsSelected" HorizontalAlignment="Center" Visibility="Collapsed" Height="2" Foreground="White" FontSize="2" Grid.Row="1" Grid.Column="1" Text="-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" />
+                        <TextBlock x:ConnectionId='59' FontWeight="Bold" Name="FormeIsSelected" HorizontalAlignment="Center" Visibility="Collapsed"  Height="2" Foreground="White" FontSize="2" Grid.Row="1" Text="--------------------------------------------------------------------------------------" />
+                        <TextBlock x:ConnectionId='60' FontWeight="Bold" Name="AssignedtoOthersIsSelected" HorizontalAlignment="Center" Visibility="Collapsed" Height="2" Foreground="White" FontSize="2" Grid.Row="1" Grid.Column="1" Text="-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" />
                     </Grid>
                     <RelativePanel Background="#03203C"  Grid.Row="2" >
-                        <TextBox x:ConnectionId='34'  
+                        <TextBox x:ConnectionId='37'  
                            VerticalAlignment="Stretch" 
                            FontSize="17" 
                            PlaceholderText="Enter the description" 
@@ -98,34 +109,37 @@
                            >
                        </TextBox>
                         <RelativePanel RelativePanel.RightOf="RemainderDescription" >
-                            <RelativePanel x:ConnectionId='35'
+                            <RelativePanel x:ConnectionId='38'
                                     BorderBrush="Black"
                                     BorderThickness="0"
                                     Name="PeopleRelativePanel"
                                     Visibility="Collapsed"
                                  >
-                                <Button x:ConnectionId='37' 
+                                <StackPanel x:ConnectionId='40' Name="PeopleAndDateStackPanel" BorderBrush="Black" Orientation="Horizontal">
+                                    <Button x:ConnectionId='44' 
                                     Name="People"
                                     Content="&#xE910;" 
                                     FontFamily="Segoe MDL2 Assets"  
-                                    FontSize="22"
+                                    FontSize="25"
                                                         
                                     Foreground="White"
                                         Canvas.ZIndex="100"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
                                 >
-                                    <Button.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </Button.Resources>
-                                    <Button.Flyout>
-                                        <Flyout Placement="Bottom">
-                                            <StackPanel XYFocusKeyboardNavigation="Auto" Margin="-12" >
-                                                <!--<AutoSuggestBox Name="MyAutoSuggestBox"
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                        <Button.Flyout>
+                                            <Flyout Placement="Bottom">
+                                                <StackPanel x:ConnectionId='51' Name="AutoSuggestBoxMain" Margin="-12">
+                                                    <!--<AutoSuggestBox Name="MyAutoSuggestBox"
                                                             PlaceholderText="Search"
                                                             TextChanged="MyAutoSuggestBox_TextChanged"
                                                             SuggestionChosen="MyAutoSuggestBox_SuggestionChosen"
@@ -137,32 +151,82 @@
                                                             CanBeScrollAnchor="True"
                                                             MaxSuggestionListHeight="200"
                                                             >-->
-                                                <TextBox x:ConnectionId='47' BorderThickness="2" BorderBrush="Black"                                                  Text="" Name="StartTypingPersonNames" PlaceholderText="Enter Person Name" Width="150" />
-                                                <ListView x:ConnectionId='48' Background="Orange" IsItemClickEnabled="True"                                                                              Name="MyAutoSuggestBox"                                                    >   
-                                                    <ListView.ItemTemplate>
-                                                        <DataTemplate                          >
-                                                            <Grid x:ConnectionId='50' Name="SuggestionsList" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
-                                                                <TextBlock x:ConnectionId='51' FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"                                 />
-                                                            </Grid>
-                                                        </DataTemplate>
-                                                    </ListView.ItemTemplate>
-                                                </ListView>
-                                                <!--</AutoSuggestBox>-->
-                                            </StackPanel>
-                                        </Flyout>
-                                    </Button.Flyout>
+                                                    <TextBox x:ConnectionId='52'                                          BorderThickness="2" BorderBrush="Black"                                                  Text="" Name="StartTypingPersonNames" PlaceholderText="Enter Person Name" Width="150" />
+                                                    <ListView x:ConnectionId='53' XYFocusKeyboardNavigation="Enabled" SelectedIndex="0"                                      Background="Orange" IsItemClickEnabled="True"                                                                              Name="MyAutoSuggestBox"                                                    >
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate                          >
+                                                                <Grid x:ConnectionId='55' Name="SuggestionsList" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                                                                    <TextBlock x:ConnectionId='56' FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"                                 />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                    <!--</AutoSuggestBox>-->
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
 
-                                </Button>
-                                <Button x:ConnectionId='38' Foreground="White"
+                                    </Button>
+                                    <Button x:ConnectionId='45'
+                                        RelativePanel.RightOf="People"
+                                        BorderBrush="Black"
+                                        Foreground="White"
+                                        Visibility="Collapsed"
+                                        Name="SetTime"  
+                                        Content="&#xEC92;" 
+                                        FontFamily="Segoe MDL2 Assets"  
+                                        FontSize="22" 
+                                        VerticalAlignment="Stretch"
+                                        
+                                        Margin="0,0,0,0"
+                                        Canvas.ZIndex="100"
+                                        HorizontalContentAlignment="Center"
+                                        BorderThickness="1"
+                                    >
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                        <Button.Flyout>
+                                            <Flyout x:ConnectionId='46' x:Name="DateAndTimeFlyout">
+                                                <Border Margin="-12" Background="#352842">
+                                                    <StackPanel  Orientation="Vertical"  Margin="10" >
+                                                        <Border Margin="0,10,0,10" Background="Orange" BorderBrush="Black" BorderThickness="2" >
+                                                            <TextBlock x:ConnectionId='50' FontWeight="SemiBold" Margin="5" Foreground="Black" Name="DateAndTimeDisplay" FontSize="15"   Text="" />
+                                                        </Border>
+                                                        <CalendarView x:ConnectionId='47' Background="Orange" SelectionMode="Single" Name="CalendarListView"                                                             />
+
+                                                        <TimePicker x:ConnectionId='48' Background="Orange"                                    Name="SetTime1"  Margin="0,10,0,10" />
+                                                        <Grid Background="Orange">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="1*"/>
+                                                                <ColumnDefinition Width="1*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button x:ConnectionId='49' Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1"                         Name="SaveDate" Content="Save" HorizontalAlignment="Stretch" />
+                                                            <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1" Content="Delete" Grid.Column="1" HorizontalAlignment="Stretch" />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Flyout>
+                                        </Button.Flyout>
+
+                                    </Button>
+                                </StackPanel>
+                                <Button x:ConnectionId='41' Foreground="White"
                                     Name="PeopleRemoveButton"
                                     FontWeight="SemiBold"
-                                    Margin="-35,-25,0,0"
+                                    Margin="-53,-10,0,0"
                                             Width="25"
                                             Height="25"
                                     Visibility="Collapsed"
                                     CornerRadius="100"
-                                    RelativePanel.AlignHorizontalCenterWith="SetTime"
-                                    RelativePanel.AlignVerticalCenterWith="SetTime"
+                                    RelativePanel.AlignRightWith="PeopleAndDateStackPanel"
+                                        RelativePanel.AlignTopWith="PeopleAndDateStackPanel"
                                     VerticalAlignment="Top" 
                                     FontSize="16"
                                     Background="Red"
@@ -174,7 +238,7 @@
                                             Canvas.ZIndex="150"
                                     >
                                     <Button.Content>
-                                        <TextBlock x:ConnectionId='45'  Margin="-5,-8,-5,-5" Name="NumberOrCross" Text="" />
+                                        <TextBlock x:ConnectionId='42'  Margin="-5,-8,-5,-5" Name="NumberOrCross" Text="" />
                                     </Button.Content>
                                     <Button.Resources>
                                         <ResourceDictionary>
@@ -188,59 +252,12 @@
                                     </Button.Resources>
 
                                     <ToolTipService.ToolTip>
-                                        <TextBlock x:ConnectionId='46'                                                           />
+                                        <TextBlock x:ConnectionId='43'                                                           />
                                     </ToolTipService.ToolTip>
                                 </Button>
-                                <Button x:ConnectionId='39'
-                                        RelativePanel.RightOf="People"
-                                        BorderBrush="Black"
-                                        Foreground="White"
-                                        Visibility="Collapsed"
-                                        Name="SetTime"  
-                                        Content="&#xEC92;" 
-                                        FontFamily="Segoe MDL2 Assets"  
-                                        FontSize="27" 
-                                        VerticalAlignment="Stretch"
-                                        BorderThickness="2,0,0,0"
-                                        Canvas.ZIndex="100"
-                                        HorizontalContentAlignment="Center"
-                                    >
-                                    <Button.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </Button.Resources>
-                                    <Button.Flyout>
-                                        <Flyout x:ConnectionId='40' x:Name="DateAndTimeFlyout">
-                                            <Border Margin="-12" Background="#352842">
-                                                <StackPanel  Orientation="Vertical"  Margin="10" >
-                                                    <Border Margin="0,10,0,10" Background="Orange" BorderBrush="Black" BorderThickness="2" >
-                                                        <TextBlock x:ConnectionId='44' FontWeight="SemiBold" Margin="5" Foreground="Black" Name="DateAndTimeDisplay" FontSize="15"   Text="" />
-                                                    </Border>
-                                                    <CalendarView x:ConnectionId='41' Background="Orange" SelectionMode="Single" Name="CalendarListView"                                                             />
-
-                                                    <TimePicker x:ConnectionId='42' Background="Orange"                                    Name="SetTime1"  Margin="0,10,0,10" />
-                                                    <Grid Background="Orange">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="1*"/>
-                                                            <ColumnDefinition Width="1*"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Button x:ConnectionId='43' Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1"                         Name="SaveDate" Content="Save" HorizontalAlignment="Stretch" />
-                                                        <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1" Content="Delete" Grid.Column="1" HorizontalAlignment="Stretch" />
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Border>
-                                        </Flyout>
-                                    </Button.Flyout>
-
-                                </Button>
                             </RelativePanel>
-                            <Button x:ConnectionId='36'
-                            FontSize="20"
+                            <Button x:ConnectionId='39'
+                            FontSize="19"
                             FontWeight="SemiBold"
                             Foreground="White"
                             Visibility="Collapsed"
@@ -250,7 +267,7 @@
                             Width="65"
                             VerticalAlignment="Stretch"
                             BorderBrush="Black"
-                            BorderThickness="2,0,0,0"
+                            BorderThickness="1"
                                 RelativePanel.RightOf="PeopleRelativePanel"
                          >
                                 <Button.Resources>
@@ -283,10 +300,10 @@
                                     Margin="-10,2,-10,2"  Name="ListOfRemainders"                                  Orientation="Vertical" 
                                       >
                                     <TextBlock x:ConnectionId='7' Margin="10,5,0,2" FontWeight="SemiBold" FontSize="20"                                          />
-                                    <TextBlock x:ConnectionId='8'                                                                 Margin="10,0,1,1"                                                               />
+                                    <TextBlock x:ConnectionId='8'                                                                  Margin="10,0,1,1"                                                               />
                                     <RelativePanel x:ConnectionId='9'                                                                      Margin="10,5,0,10" >
-                                        <TextBlock x:ConnectionId='10' RelativePanel.AlignBottomWithPanel="True"  FontSize="18" FontWeight="SemiBold"  Name="AssignedTo"                                                                      FontFamily="Segoe MDL2 Assets"  Text="&#xEA8C;" Margin="0,0,5,0" />
-                                        <TextBlock x:ConnectionId='11' RelativePanel.RightOf="AssignedTo"  RelativePanel.AlignBottomWithPanel="True"  FontSize="16"                                                                                                                   />
+                                        <TextBlock x:ConnectionId='10' RelativePanel.AlignBottomWithPanel="True"  FontSize="16" FontWeight="SemiBold"  Name="AssignedTo"                                                                      FontFamily="Segoe MDL2 Assets"  Text="&#xEA8C;" Margin="0,0,5,0" />
+                                        <TextBlock x:ConnectionId='11' RelativePanel.RightOf="AssignedTo"  RelativePanel.AlignBottomWithPanel="True"  FontSize="15"                                                                                                                   />
                                         <!--<GridView ItemsSource="{x:Bind People, Mode=OneWay}">
                                             <GridView.ItemTemplate>
                                             <DataTemplate x:DataType="local:Person">
@@ -327,12 +344,12 @@
                                                             </ResourceDictionary>
                                                         </Button.Resources>
                                                         <Button.Flyout>
-                                                        <Flyout x:ConnectionId='30' x:Name="DateAndTimeFlyout1"                                     >
+                                                        <Flyout x:ConnectionId='33' x:Name="DateAndTimeFlyout1"                                     >
                                                                 <Border Margin="-12" Background="#352842" >
                                                                 <StackPanel Margin="10" Orientation="Vertical" >
-                                                                    <CalendarView x:ConnectionId='31' Background="Orange"                             SelectionMode="Single" Name="FlyoutCalendarListView"                                                                    />
-                                                                <TimePicker x:ConnectionId='32' Background="Orange"                                                                                Name="SetTime2"  Margin="0,10,0,0" />
-                                                                        <Button x:ConnectionId='33' Margin="5" HorizontalAlignment="Center" Content="Save"  FontSize="15" Background="Orange" Name="DateSaveButtonInsideFlyout"                                                                    >
+                                                                    <CalendarView x:ConnectionId='34'                                               IsTodayHighlighted="False" Background="Orange"                             SelectionMode="Single" Name="FlyoutCalendarListView"                                                                    />
+                                                                <TimePicker x:ConnectionId='35' Background="Orange"                                                                                Name="SetTime2"  Margin="0,10,0,0" />
+                                                                        <Button x:ConnectionId='36' Margin="5" HorizontalAlignment="Center" Content="Save"  FontSize="15" Background="Orange" Name="DateSaveButtonInsideFlyout"                                                                    >
                                                                         </Button>
 
                                                                     </StackPanel>
@@ -354,26 +371,36 @@
                                                                 </ResourceDictionary>
                                                             </Button.Resources>
                                                             <Button.Flyout>
-                                                            <Flyout>
-                                                                <StackPanel>
-                                                                    <AutoSuggestBox x:ConnectionId='26' Name="MyAutoSuggestBox1"
+                                                            <Flyout x:ConnectionId='26' Placement="Bottom" x:Name="FlyoutWhichContainsAutosuggestBox"                                                  >
+                                                                        <StackPanel x:ConnectionId='27' Margin="-12"                            Name="StackPanelContainingAutoSuggestBox"                                                        >
+                                                                    <!--<AutoSuggestBox Name="MyAutoSuggestBox1"
                                                                                     PlaceholderText="Search"
                                                                                     Width="150"
-                                                                                                                                         
-                                                                                                                               
-                                                                                                                           
-                                                                                                                         
+                                                                                    SuggestionChosen="MyAutoSuggestBox1_SuggestionChosen"
+                                                                                    TextChanged="MyAutoSuggestBox1_TextChanged"
+                                                                                    Tag="{x:Bind RemainderId, Mode=OneWay}"
+                                                                                    GotFocus="MyAutoSuggestBox1_GotFocus"
                                                                                     Margin="-13"
                                                                                     >
                                                                         <AutoSuggestBox.ItemTemplate>
-                                                                                <DataTemplate                          >
-                                                                                    <Grid x:ConnectionId='28' Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="#302245">
-                                                                                        <TextBlock x:ConnectionId='29' FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"                                 />
+                                                                                <DataTemplate x:DataType="local:Person">
+                                                                                    <Grid Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="#302245">
+                                                                                        <TextBlock FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
                                                                                     </Grid>
                                                                                 </DataTemplate>
                                                                             </AutoSuggestBox.ItemTemplate>
-                                                                    </AutoSuggestBox>
-                                                                </StackPanel>
+                                                                    </AutoSuggestBox>-->
+                                                                            <TextBox x:ConnectionId='28'                                                                                                                                          BorderThickness="2" BorderBrush="Black"                                                   Text="" x:Name="StartTypingPersonNames1" PlaceholderText="Enter Person Name" Width="150"/>
+                                                                            <ListView x:ConnectionId='29'                                      SelectedIndex="0"                            Background="Orange" IsItemClickEnabled="True"                                          Name="MyAutoSuggestBox1" >
+                                                                                    <ListView.ItemTemplate>
+                                                                                        <DataTemplate                          >
+                                                                                            <Grid x:ConnectionId='31'   Name="SuggestionsList1" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                                                                                                <TextBlock x:ConnectionId='32' FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"                                 />
+                                                                                            </Grid>
+                                                                                        </DataTemplate>
+                                                                                    </ListView.ItemTemplate>
+                                                                                </ListView>
+                                                                        </StackPanel>
                                                             </Flyout>
                                                         </Button.Flyout>
                                                     </Button>
@@ -474,7 +501,7 @@
                         CornerRadius="99"
                         >
                         <Button.Content>
-                            <TextBlock x:ConnectionId='58' Name="testing" Margin="-5" FontWeight="Bold" FontSize="18" Text="4"/>
+                            <TextBlock x:ConnectionId='63' Name="testing" Margin="-5" FontWeight="Bold" FontSize="18" Text="4"/>
                         </Button.Content>
                     </Button>
                 </Grid>
@@ -488,6 +515,18 @@
 
 
 
+
+
+<!--<TextBox GotFocus="StartTypingPersonNames1_GotFocus" Tag="{x:Bind RemainderId,Mode=OneWay}" BorderThickness="2" BorderBrush="Black" TextChanged="StartTypingPersonNames1_TextChanged" Text="" Name="StartTypingPersonNames1" PlaceholderText="Enter Person Name" Width="150"/>
+    <ListView  GotFocus="MyAutoSuggestBox1_GotFocus_2" Tag="{x:Bind RemainderId}" Background="Orange" IsItemClickEnabled="True" ItemClick="MyAutoSuggestBox1_ItemClick"  Name="MyAutoSuggestBox1" >
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="local:Person">
+                <Grid Name="SuggestionsList1"  BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                    <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView> -->
 
 
 

@@ -25,7 +25,18 @@
             Content="&#xE916;"
             Click="RemaindersButton_Click"
             CornerRadius="15"
-            />
+            >
+            <Button.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#15202B" />
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </Button.Resources>
+        </Button>
         <SplitView 
             Background="#273341"
             Grid.Row="1" 
@@ -104,28 +115,31 @@
                                     Name="PeopleRelativePanel"
                                     Visibility="Collapsed"
                                  >
-                                <Button 
+                                <StackPanel Name="PeopleAndDateStackPanel" BorderBrush="Black" Orientation="Horizontal">
+                                    <Button 
                                     Name="People"
                                     Content="&#xE910;" 
                                     FontFamily="Segoe MDL2 Assets"  
-                                    FontSize="22"
+                                    FontSize="25"
                                     Click="People_Click"
                                     Foreground="White"
                                         Canvas.ZIndex="100"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
                                 >
-                                    <Button.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </Button.Resources>
-                                    <Button.Flyout>
-                                        <Flyout Placement="Bottom">
-                                            <StackPanel XYFocusKeyboardNavigation="Auto" Margin="-12" >
-                                                <!--<AutoSuggestBox Name="MyAutoSuggestBox"
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                        <Button.Flyout>
+                                            <Flyout Placement="Bottom">
+                                                <StackPanel Name="AutoSuggestBoxMain" Margin="-12">
+                                                    <!--<AutoSuggestBox Name="MyAutoSuggestBox"
                                                             PlaceholderText="Search"
                                                             TextChanged="MyAutoSuggestBox_TextChanged"
                                                             SuggestionChosen="MyAutoSuggestBox_SuggestionChosen"
@@ -137,32 +151,82 @@
                                                             CanBeScrollAnchor="True"
                                                             MaxSuggestionListHeight="200"
                                                             >-->
-                                                <TextBox BorderThickness="2" BorderBrush="Black" TextChanged="StartTypingPersonNames_TextChanged" Text="" Name="StartTypingPersonNames" PlaceholderText="Enter Person Name" Width="150" />
-                                                <ListView Background="Orange" IsItemClickEnabled="True" ItemClick="MyAutoSuggestBox_ItemClick"  GotFocus="MyAutoSuggestBox_GotFocus" Name="MyAutoSuggestBox" ItemsSource="{x:Bind NotAddedPersons,Mode=OneWay}" >   
-                                                    <ListView.ItemTemplate>
-                                                        <DataTemplate x:DataType="local:Person">
-                                                            <Grid Name="SuggestionsList" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
-                                                                <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
-                                                            </Grid>
-                                                        </DataTemplate>
-                                                    </ListView.ItemTemplate>
-                                                </ListView>
-                                                <!--</AutoSuggestBox>-->
-                                            </StackPanel>
-                                        </Flyout>
-                                    </Button.Flyout>
+                                                    <TextBox KeyDown="StartTypingPersonNames_KeyDown" BorderThickness="2" BorderBrush="Black" TextChanged="StartTypingPersonNames_TextChanged" Text="" Name="StartTypingPersonNames" PlaceholderText="Enter Person Name" Width="150" />
+                                                    <ListView XYFocusKeyboardNavigation="Enabled" SelectedIndex="0"  KeyDown="MyAutoSuggestBox_KeyDown"  Background="Orange" IsItemClickEnabled="True" ItemClick="MyAutoSuggestBox_ItemClick"  GotFocus="MyAutoSuggestBox_GotFocus" Name="MyAutoSuggestBox" ItemsSource="{x:Bind NotAddedPersons,Mode=OneWay}" >
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate x:DataType="local:Person">
+                                                                <Grid Name="SuggestionsList" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                                                                    <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                    <!--</AutoSuggestBox>-->
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
 
-                                </Button>
+                                    </Button>
+                                    <Button
+                                        RelativePanel.RightOf="People"
+                                        BorderBrush="Black"
+                                        Foreground="White"
+                                        Visibility="Collapsed"
+                                        Name="SetTime"  
+                                        Content="&#xEC92;" 
+                                        FontFamily="Segoe MDL2 Assets"  
+                                        FontSize="22" 
+                                        VerticalAlignment="Stretch"
+                                        
+                                        Margin="0,0,0,0"
+                                        Canvas.ZIndex="100"
+                                        HorizontalContentAlignment="Center"
+                                        BorderThickness="1"
+                                    >
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                        <Button.Flyout>
+                                            <Flyout x:Name="DateAndTimeFlyout">
+                                                <Border Margin="-12" Background="#352842">
+                                                    <StackPanel  Orientation="Vertical"  Margin="10" >
+                                                        <Border Margin="0,10,0,10" Background="Orange" BorderBrush="Black" BorderThickness="2" >
+                                                            <TextBlock FontWeight="SemiBold" Margin="5" Foreground="Black" Name="DateAndTimeDisplay" FontSize="15"   Text="" />
+                                                        </Border>
+                                                        <CalendarView Background="Orange" SelectionMode="Single" Name="CalendarListView" SelectedDatesChanged="CalendarListView_SelectedDatesChanged"/>
+
+                                                        <TimePicker Background="Orange" TimeChanged="SetTime1_TimeChanged" Name="SetTime1"  Margin="0,10,0,10" />
+                                                        <Grid Background="Orange">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="1*"/>
+                                                                <ColumnDefinition Width="1*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1"  Click="SaveDate_Click" Name="SaveDate" Content="Save" HorizontalAlignment="Stretch" />
+                                                            <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1" Content="Delete" Grid.Column="1" HorizontalAlignment="Stretch" />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Flyout>
+                                        </Button.Flyout>
+
+                                    </Button>
+                                </StackPanel>
                                 <Button Foreground="White"
                                     Name="PeopleRemoveButton"
                                     FontWeight="SemiBold"
-                                    Margin="-35,-25,0,0"
+                                    Margin="-53,-10,0,0"
                                             Width="25"
                                             Height="25"
                                     Visibility="Collapsed"
                                     CornerRadius="100"
-                                    RelativePanel.AlignHorizontalCenterWith="SetTime"
-                                    RelativePanel.AlignVerticalCenterWith="SetTime"
+                                    RelativePanel.AlignRightWith="PeopleAndDateStackPanel"
+                                        RelativePanel.AlignTopWith="PeopleAndDateStackPanel"
                                     VerticalAlignment="Top" 
                                     FontSize="16"
                                     Background="Red"
@@ -191,56 +255,9 @@
                                         <TextBlock Text="{x:Bind peopleIncludedforOneRemainder,Mode=TwoWay}" />
                                     </ToolTipService.ToolTip>
                                 </Button>
-                                <Button
-                                        RelativePanel.RightOf="People"
-                                        BorderBrush="Black"
-                                        Foreground="White"
-                                        Visibility="Collapsed"
-                                        Name="SetTime"  
-                                        Content="&#xEC92;" 
-                                        FontFamily="Segoe MDL2 Assets"  
-                                        FontSize="27" 
-                                        VerticalAlignment="Stretch"
-                                        BorderThickness="2,0,0,0"
-                                        Canvas.ZIndex="100"
-                                        HorizontalContentAlignment="Center"
-                                    >
-                                    <Button.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </Button.Resources>
-                                    <Button.Flyout>
-                                        <Flyout x:Name="DateAndTimeFlyout">
-                                            <Border Margin="-12" Background="#352842">
-                                                <StackPanel  Orientation="Vertical"  Margin="10" >
-                                                    <Border Margin="0,10,0,10" Background="Orange" BorderBrush="Black" BorderThickness="2" >
-                                                        <TextBlock FontWeight="SemiBold" Margin="5" Foreground="Black" Name="DateAndTimeDisplay" FontSize="15"   Text="" />
-                                                    </Border>
-                                                    <CalendarView Background="Orange" SelectionMode="Single" Name="CalendarListView" SelectedDatesChanged="CalendarListView_SelectedDatesChanged"/>
-
-                                                    <TimePicker Background="Orange" TimeChanged="SetTime1_TimeChanged" Name="SetTime1"  Margin="0,10,0,10" />
-                                                    <Grid Background="Orange">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="1*"/>
-                                                            <ColumnDefinition Width="1*"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1"  Click="SaveDate_Click" Name="SaveDate" Content="Save" HorizontalAlignment="Stretch" />
-                                                        <Button Foreground="Black" BorderBrush="Black" FontWeight="SemiBold" BorderThickness="1" Content="Delete" Grid.Column="1" HorizontalAlignment="Stretch" />
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Border>
-                                        </Flyout>
-                                    </Button.Flyout>
-
-                                </Button>
                             </RelativePanel>
                             <Button
-                            FontSize="20"
+                            FontSize="19"
                             FontWeight="SemiBold"
                             Foreground="White"
                             Visibility="Collapsed"
@@ -250,7 +267,7 @@
                             Width="65"
                             VerticalAlignment="Stretch"
                             BorderBrush="Black"
-                            BorderThickness="2,0,0,0"
+                            BorderThickness="1"
                                 RelativePanel.RightOf="PeopleRelativePanel"
                          >
                                 <Button.Resources>
@@ -283,10 +300,10 @@
                                     Margin="-10,2,-10,2"  Name="ListOfRemainders" Tapped="ListOfRemainders_Tapped" Orientation="Vertical" 
                                       >
                                     <TextBlock Margin="10,5,0,2" FontWeight="SemiBold" FontSize="20" Text="{x:Bind Description, Mode=TwoWay}" />
-                                    <TextBlock Visibility="{x:Bind isDateAndTimeSet(DateAndTime),Mode=OneWay}" Margin="10,0,1,1"   Text="{x:Bind DateAndTime.DateTime.ToString(), Mode=OneWay}"/>
+                                    <TextBlock  Visibility="{x:Bind isDateAndTimeSet(DateAndTime),Mode=OneWay}" Margin="10,0,1,1"   Text="{x:Bind DateAndTime.DateTime.ToString(), Mode=OneWay}"/>
                                     <RelativePanel Visibility="{x:Bind CheckWhetherAssignedOrNot(People), Mode=OneWay}" Margin="10,5,0,10" >
-                                        <TextBlock RelativePanel.AlignBottomWithPanel="True"  FontSize="18" FontWeight="SemiBold"  Name="AssignedTo" Visibility="{x:Bind CheckWhetherAssignedOrNot(People), Mode=OneWay}" FontFamily="Segoe MDL2 Assets"  Text="&#xEA8C;" Margin="0,0,5,0" />
-                                        <TextBlock RelativePanel.RightOf="AssignedTo"  RelativePanel.AlignBottomWithPanel="True"  FontSize="16" Text="{x:Bind getPeople(People),Mode=OneWay}" Visibility="{x:Bind CheckWhetherAssignedOrNot(People),Mode=OneWay}" />
+                                        <TextBlock RelativePanel.AlignBottomWithPanel="True"  FontSize="16" FontWeight="SemiBold"  Name="AssignedTo" Visibility="{x:Bind CheckWhetherAssignedOrNot(People), Mode=OneWay}" FontFamily="Segoe MDL2 Assets"  Text="&#xEA8C;" Margin="0,0,5,0" />
+                                        <TextBlock RelativePanel.RightOf="AssignedTo"  RelativePanel.AlignBottomWithPanel="True"  FontSize="15" Text="{x:Bind getPeople(People),Mode=OneWay}" Visibility="{x:Bind CheckWhetherAssignedOrNot(People),Mode=OneWay}" />
                                         <!--<GridView ItemsSource="{x:Bind People, Mode=OneWay}">
                                             <GridView.ItemTemplate>
                                             <DataTemplate x:DataType="local:Person">
@@ -330,7 +347,7 @@
                                                         <Flyout x:Name="DateAndTimeFlyout1"  Closed="DateAndTimeFlyout1_Closed" >
                                                                 <Border Margin="-12" Background="#352842" >
                                                                 <StackPanel Margin="10" Orientation="Vertical" >
-                                                                    <CalendarView Background="Orange"  Tag="{x:Bind RemainderId}" SelectionMode="Single" Name="FlyoutCalendarListView" SelectedDatesChanged="FlyoutCalendarListView_SelectedDatesChanged" />
+                                                                    <CalendarView  LostFocus="FlyoutCalendarListView_LostFocus" IsTodayHighlighted="False" Background="Orange"  Tag="{x:Bind RemainderId}" SelectionMode="Single" Name="FlyoutCalendarListView" SelectedDatesChanged="FlyoutCalendarListView_SelectedDatesChanged" />
                                                                 <TimePicker Background="Orange" SelectedTimeChanged="SetTime2_SelectedTimeChanged" Tag="{x:Bind RemainderId}"  Name="SetTime2"  Margin="0,10,0,0" />
                                                                         <Button Margin="5" HorizontalAlignment="Center" Content="Save"  FontSize="15" Background="Orange" Name="DateSaveButtonInsideFlyout" Click="DateSaveButtonInsideFlyout_Click" Tag="{x:Bind RemainderId}">
                                                                         </Button>
@@ -354,9 +371,9 @@
                                                                 </ResourceDictionary>
                                                             </Button.Resources>
                                                             <Button.Flyout>
-                                                            <Flyout>
-                                                                <StackPanel>
-                                                                    <AutoSuggestBox Name="MyAutoSuggestBox1"
+                                                            <Flyout Placement="Bottom" x:Name="FlyoutWhichContainsAutosuggestBox" Closed="FlyoutWhichContainsAutosuggestBox_Closed">
+                                                                        <StackPanel Margin="-12" Tag="{x:Bind RemainderId}" Name="StackPanelContainingAutoSuggestBox" GotFocus="StackPanelContainingAutoSuggestBox_GotFocus" >
+                                                                    <!--<AutoSuggestBox Name="MyAutoSuggestBox1"
                                                                                     PlaceholderText="Search"
                                                                                     Width="150"
                                                                                     SuggestionChosen="MyAutoSuggestBox1_SuggestionChosen"
@@ -372,8 +389,18 @@
                                                                                     </Grid>
                                                                                 </DataTemplate>
                                                                             </AutoSuggestBox.ItemTemplate>
-                                                                    </AutoSuggestBox>
-                                                                </StackPanel>
+                                                                    </AutoSuggestBox>-->
+                                                                            <TextBox KeyDown="StartTypingPersonNames1_KeyDown" PointerPressed="StartTypingPersonNames1_PointerPressed" Tag="{x:Bind RemainderId,Mode=OneWay}" BorderThickness="2" BorderBrush="Black" TextChanged="StartTypingPersonNames1_TextChanged" Text="" x:Name="StartTypingPersonNames1" PlaceholderText="Enter Person Name" Width="150"/>
+                                                                            <ListView  KeyDown="MyAutoSuggestBox1_KeyDown" SelectedIndex="0" Tag="{x:Bind RemainderId}" Background="Orange" IsItemClickEnabled="True" ItemClick="MyAutoSuggestBox1_ItemClick"  Name="MyAutoSuggestBox1" >
+                                                                                    <ListView.ItemTemplate>
+                                                                                        <DataTemplate x:DataType="local:Person">
+                                                                                            <Grid   Name="SuggestionsList1" Margin="-13,0,-13,0" BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                                                                                                <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
+                                                                                            </Grid>
+                                                                                        </DataTemplate>
+                                                                                    </ListView.ItemTemplate>
+                                                                                </ListView>
+                                                                        </StackPanel>
                                                             </Flyout>
                                                         </Button.Flyout>
                                                     </Button>
@@ -488,6 +515,18 @@
 
 
 
+
+
+<!--<TextBox GotFocus="StartTypingPersonNames1_GotFocus" Tag="{x:Bind RemainderId,Mode=OneWay}" BorderThickness="2" BorderBrush="Black" TextChanged="StartTypingPersonNames1_TextChanged" Text="" Name="StartTypingPersonNames1" PlaceholderText="Enter Person Name" Width="150"/>
+    <ListView  GotFocus="MyAutoSuggestBox1_GotFocus_2" Tag="{x:Bind RemainderId}" Background="Orange" IsItemClickEnabled="True" ItemClick="MyAutoSuggestBox1_ItemClick"  Name="MyAutoSuggestBox1" >
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="local:Person">
+                <Grid Name="SuggestionsList1"  BorderBrush="Black" BorderThickness="1,1,1,1" Height="40" Width="150" Background="Orange">
+                    <TextBlock FontWeight="SemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}"/>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView> -->
 
 
 

@@ -398,17 +398,7 @@ namespace Remainders
             {
                 if(i.RemainderId==remainderId)
                 {
-                    /*var already_present = 0;
-                    foreach(var j in i.People)
-                    {
-                        if(j.ZuId==selectedPerson.ZuId)
-                        {
-                            already_present = 1;
-                            break ;
-                        }
-                    }
-                    if (already_present == 0)*/
-                        i.People.Add(selectedPerson);
+                    i.People.Add(selectedPerson);
                     break;
                 }
             }
@@ -422,7 +412,7 @@ namespace Remainders
 
         }
 
-        private void MyAutoSuggestBox1_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+       /* private void MyAutoSuggestBox1_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             var remainderId = (string)sender.Tag;
             ObservableCollection<Person> suggestion = new ObservableCollection<Person>();
@@ -464,11 +454,163 @@ namespace Remainders
                         break;
                 }
                 if (whiteSpaces == sender.Text.Length)
-                    sender.Text = "";*/
+                /////////////////////////////////    sender.Text = "";
                 if (string.IsNullOrWhiteSpace(sender.Text))
                     sender.Text = "";
                 sender.ItemsSource = suggestion.Where(p => p.Name.StartsWith(sender.Text, StringComparison.OrdinalIgnoreCase) && p.Name != "snehith");
             }
+        }*/
+
+        public ObservableCollection<Person> tempPersons;
+        private void StartTypingPersonNames1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var item = (TextBox)sender;
+            var remainderId = (string)item.Tag;
+            tempPersons = new ObservableCollection<Person>();
+            foreach (var i in Remainders)
+            {
+                if (i.RemainderId == remainderId)
+                {
+                    foreach (var j in Persons)
+                    {
+                        int duplicate = 0;
+                        foreach (var k in i.People)
+                        {
+                            if (k == j)
+                            {
+                                duplicate = 1;
+                                break;
+                            }
+                        }
+                        if (duplicate == 0)
+                            tempPersons.Add(j);
+                    }
+
+                    break;
+                }
+
+            }
+            if (string.IsNullOrEmpty(item.Text))
+            {
+                foreach(var i in tempPersons)
+                {
+                    if (i.Name == "snehith")
+                    {
+                        tempPersons.Remove(i);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(item.Text))
+                    item.Text = "";
+                List<Person> p = new List<Person>();
+
+                foreach(var i in tempPersons)
+                {
+                    if(i.Name.StartsWith(item.Text,StringComparison.OrdinalIgnoreCase) && i.Name!="snehith" )
+                    {
+                        p.Add(i);
+                    }
+                }
+                tempPersons.Clear();
+                foreach(var i in p)
+                {
+                    tempPersons.Add(i);
+                }
+            }
+            RaisePropertyChanged(nameof(tempPersons));
+            //foreach (var i in tempPersons)
+            //  testing.Text += i.Name;
+
+            tempListView.ItemsSource = tempPersons;
+        }
+
+        public ListView tempListView;
+
+        int stackpanelContainingAutoSuggestBoxIsOpen = 0;
+        private void StackPanelContainingAutoSuggestBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var item = (StackPanel)sender;
+            ListView k = (ListView)VisualTreeHelper.GetChild(item, 1);
+            tempListView = k;
+            if (stackpanelContainingAutoSuggestBoxIsOpen == 0)
+            {
+                TextBox t = (TextBox)VisualTreeHelper.GetChild(item, 0);
+                var remainderId = (string)item.Tag;
+                tempPersons = new ObservableCollection<Person>();
+                foreach (var i in Remainders)
+                {
+                    if (i.RemainderId == remainderId)
+                    {
+                        foreach (var j in Persons)
+                        {
+                            int duplicate = 0;
+                            foreach (var z in i.People)
+                            {
+                                if (z == j)
+                                {
+                                    duplicate = 1;
+                                    break;
+                                }
+                            }
+                            if (duplicate == 0)
+                                tempPersons.Add(j);
+                        }
+
+                        break;
+                    }
+
+                }
+                if (string.IsNullOrWhiteSpace(t.Text))
+                {
+                    foreach (var i in tempPersons)
+                    {
+                        if (i.Name == "snehith")
+                        {
+                            tempPersons.Remove(i);
+                            break;
+                        }
+                    }
+                }
+                tempListView.ItemsSource = tempPersons;
+                stackpanelContainingAutoSuggestBoxIsOpen = 1;
+            }
+        }
+
+        private void MyAutoSuggestBox1_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = (ListView)sender;
+            string remainderId = (string)item.Tag;
+            Person selectedPerson = (Person)e.ClickedItem;
+            foreach(var i in Remainders)
+            {
+                if(i.RemainderId==remainderId)
+                {
+                    foreach(var j in tempPersons)
+                    {
+                        if(j==selectedPerson)
+                        {
+                            tempPersons.Remove(j);
+                            break;
+                        }
+                    }
+                    i.people.Add(selectedPerson);
+                    
+                    break;
+                }
+            }
+            StackPanel s = (StackPanel)VisualTreeHelper.GetParent(item);
+            TextBox t = (TextBox)VisualTreeHelper.GetChild(s, 0);
+            t.Text = "";
+        }
+
+        private void FlyoutWhichContainsAutosuggestBox_Closed(object sender, object e)
+        {
+            if(tempPersons!=null)
+            tempPersons.Clear();
+            stackpanelContainingAutoSuggestBoxIsOpen = 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -624,11 +766,13 @@ namespace Remainders
         private void FlyoutCalendarListView_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args)
         {
             //testing.Text += "a";
+            DateTimeOffset temp;
+            string tagRemainderId;
             var calendarr = (CalendarView)sender;
-            var item = sender.Tag;
-            var tagRemainderId = (string)item;
-            List<DateTimeOffset> dateTimeOffsets1 = args.AddedDates.ToHashSet().ToList();
-            var temp = dateTimeOffsets1.FirstOrDefault();
+                var item = sender.Tag;
+                 tagRemainderId = (string)item;
+                List<DateTimeOffset> dateTimeOffsets1 = calendarr.SelectedDates.ToHashSet().ToList();
+                temp = dateTimeOffsets1.FirstOrDefault();
             calendarr.IsTodayHighlighted = false;
             if (whichremainder == 1)
             {
@@ -636,9 +780,9 @@ namespace Remainders
                 {
                     if (i.RemainderId == tagRemainderId)
                     {
-
+                        
                         //i.DateAndTime = new DateTimeOffset(temp.Year, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
-                        tempRemainderDateAndTime = new DateTimeOffset(temp.Year, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
+                        tempRemainderDateAndTime = new DateTimeOffset(temp.Year+1, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
                         //testing.Text = tempRemainderDateAndTime.ToString();
                         return;
                     }
@@ -652,11 +796,12 @@ namespace Remainders
                     {
                         //i.DateAndTime = new DateTimeOffset(temp.Year, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
                         //Testing.Text = i.DateAndTime.ToString();
-                        tempRemainderDateAndTime= new DateTimeOffset(temp.Year, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
+                        tempRemainderDateAndTime= new DateTimeOffset(temp.Year+1, temp.Month, temp.Day, i.DateAndTime.Hour, i.DateAndTime.Minute, i.DateAndTime.Second, new TimeSpan(5, 30, 0));
                         return;
                     }
                 }
             }
+            calendarr.SelectedDates.Clear();
         }
 
         private void SetTime2_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
@@ -830,24 +975,152 @@ namespace Remainders
             //RaisePropertyChanged(nameof(whichremainder));
         }
 
-        private void Flyout_Opened(object sender, object e)
-        {
-
-        }
-
-        private void Flyout_Closed(object sender, object e)
-        {
-
-        }
 
         private void DateAndTimeFlyout1_Closed(object sender, object e)
         {
             tempRemainderDateAndTime = DateTimeOffset.MinValue;
         }
+
+        private void FlyoutCalendarListView_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //var item = (CalendarView)sender;
+            //item.SelectedDates.Clear();
+        }
+
+        public bool LettersEntered(Windows.System.VirtualKey ky)
+        {
+            if(((Windows.System.VirtualKey)65<=ky && ky <= (Windows.System.VirtualKey)92) || ((Windows.System.VirtualKey)97 <= ky && ky <= (Windows.System.VirtualKey)122))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void SuggestionsList1_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            var item = (Grid)sender;
+        }
+
+        private void StartTypingPersonNames1_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            var item = (TextBox)sender;
+            item.Focus(FocusState.Keyboard);
+        }
+
+        private void StartTypingPersonNames_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(LettersEntered(e.Key))
+            {
+                return;
+            }
+            
+            //MyAutoSuggestBox.Focus(FocusState.Keyboard);
+            if (e.Key==Windows.System.VirtualKey.Down)
+            {
+                //MyAutoSuggestBox.SelectedIndex = 0;
+                
+                //testing.Text = ((Person)MyAutoSuggestBox.Items.ElementAt(MyAutoSuggestBox.SelectedIndex)).Name.ToString();
+                MyAutoSuggestBox.SelectedItem = MyAutoSuggestBox.Items.ElementAt(0);
+            }
+            else if(e.Key==Windows.System.VirtualKey.Up)
+            {
+                MyAutoSuggestBox.SelectedItem = MyAutoSuggestBox.Items.ElementAt(MyAutoSuggestBox.Items.Count - 1);
+            }
+            else if(e.Key==Windows.System.VirtualKey.Back)
+            {
+                StartTypingPersonNames.Focus(FocusState.Keyboard);
+            }
+        }
+
+        private void MyAutoSuggestBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(LettersEntered(e.Key))
+            {
+                StartTypingPersonNames.Focus(FocusState.Keyboard);
+                StartTypingPersonNames.Text += e.Key.ToString();
+                StartTypingPersonNames.SelectionStart = StartTypingPersonNames.Text.Length;
+            }
+            else if(e.Key==Windows.System.VirtualKey.Down)
+            {
+                if(MyAutoSuggestBox.SelectedItem==MyAutoSuggestBox.Items.ElementAt(MyAutoSuggestBox.Items.Count-1))
+                {
+                    MyAutoSuggestBox.SelectedItem = MyAutoSuggestBox.Items.ElementAt(0);
+                }
+            }
+            else if(e.Key == Windows.System.VirtualKey.Up)
+            {
+                if (MyAutoSuggestBox.SelectedItem == MyAutoSuggestBox.Items.ElementAt(0))
+                {
+                    MyAutoSuggestBox.SelectedItem = MyAutoSuggestBox.Items.ElementAt(MyAutoSuggestBox.Items.Count - 1);
+                }
+            }
+        }
+
+        private void StartTypingPersonNames1_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            TextBox t = (TextBox)sender;
+            StackPanel s = (StackPanel)VisualTreeHelper.GetParent(t);
+            ListView l = (ListView)VisualTreeHelper.GetChild(s, 1);
+            if (LettersEntered(e.Key))
+            {
+                return;
+            }
+            l.Focus(FocusState.Keyboard);
+            if (e.Key == Windows.System.VirtualKey.Up)
+            {
+                l.SelectedItem = l.Items.ElementAt(l.Items.Count - 1);
+            }
+            else if (e.Key == Windows.System.VirtualKey.Down)
+            {
+                l.SelectedItem = l.Items.ElementAt(0);
+            }
+            else if (e.Key == Windows.System.VirtualKey.Back)
+            {
+                t.Focus(FocusState.Keyboard);
+            }
+        }
+
+        private void MyAutoSuggestBox1_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            ListView l = (ListView)sender;
+            StackPanel s = (StackPanel)VisualTreeHelper.GetParent(l);
+            TextBox t = (TextBox)VisualTreeHelper.GetChild(s, 0);
+            if (LettersEntered(e.Key))
+            {
+                t.Focus(FocusState.Keyboard);
+                t.Text += e.Key.ToString();
+                t.SelectionStart = t.Text.Length;
+            }
+            else if (e.Key == Windows.System.VirtualKey.Down)
+            {
+                if (l.SelectedItem == l.Items.ElementAt(l.Items.Count - 1))
+                {
+                    l.SelectedItem = l.Items.ElementAt(0);
+                }
+            }
+            else if (e.Key == Windows.System.VirtualKey.Up)
+            {
+                if (l.SelectedItem == l.Items.ElementAt(0))
+                {
+                    l.SelectedItem = l.Items.ElementAt(l.Items.Count - 1);
+                }
+            }
+        }
     }
 }
 
 
+
+
+/*ListView k = (ListView)VisualTreeHelper.GetChild(item, 1);
+//ItemsPanelTemplate i = (ItemsPanelTemplate)VisualTreeHelper.GetChild(k, 0);
+Border b = (Border)VisualTreeHelper.GetChild(k, 0);
+ScrollViewer d = (ScrollViewer)VisualTreeHelper.GetChild(b, 0);
+Border g = (Border)VisualTreeHelper.GetChild(d, 0);
+Grid g1 = (Grid)VisualTreeHelper.GetChild(g, 0);
+TextBlock t = (TextBlock)VisualTreeHelper.GetChild(g1, 0);
+//t.BorderThickness = new Thickness(2);
+t.Foreground = new SolidColorBrush(Colors.Black);*/
 
 
 

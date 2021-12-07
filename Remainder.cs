@@ -92,7 +92,7 @@ namespace Remainders
         }
         public Windows.UI.Xaml.Visibility isDateAndTimeSet(DateTimeOffset dt)
         {
-            if (dt != DateTimeOffset.MinValue)
+            if (dt != DateTimeOffset.MinValue && dt.Year!=2)
                 return Windows.UI.Xaml.Visibility.Visible;
             else
                 return Windows.UI.Xaml.Visibility.Collapsed;
@@ -135,12 +135,12 @@ namespace Remainders
 
         public string dateSetStatus(DateTimeOffset dt)
         {
-            if (DateTimeOffset.MinValue == dt)
+            if (DateTimeOffset.MinValue == dt || dt.Year==2)
             {
                 return "Set due date";
             }
             else
-                return dt.ToString();
+                return dt.DateTime.ToString();
         }
 
     }

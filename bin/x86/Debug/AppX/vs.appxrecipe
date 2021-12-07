@@ -30,13 +30,13 @@
     <AppXManifest Include="D:\Remainder-default\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-12-01T09:29:33.148</Modified>
+      <Modified>2021-12-07T08:56:02.527</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\Remainders.exe">
       <PackagePath>entrypoint\Remainders.exe</PackagePath>
-      <Modified>2021-12-01T09:29:32.177</Modified>
+      <Modified>2021-12-07T08:55:56.678</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\6.2.12\runtimes\win10-x86\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
@@ -86,15 +86,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\Remainders.xr.xml">
       <PackagePath>Remainders.xr.xml</PackagePath>
-      <Modified>2021-12-01T07:20:27.272</Modified>
+      <Modified>2021-12-07T07:41:38.252</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2021-12-01T09:23:51.573</Modified>
+      <Modified>2021-12-07T08:55:56.080</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2021-12-01T09:23:51.573</Modified>
+      <Modified>2021-12-07T08:55:56.080</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -102,11 +102,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2021-11-15T11:21:37.116</Modified>
+      <Modified>2021-12-02T04:17:30.624</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Remainder-default\bin\x86\Debug\Core\Remainders.exe">
       <PackagePath>Remainders.exe</PackagePath>
-      <Modified>2021-12-01T09:29:33.117</Modified>
+      <Modified>2021-12-07T08:56:02.455</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

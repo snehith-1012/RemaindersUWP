@@ -13,11 +13,11 @@
       <RootProperty Name="Children" />
       <RootProperty Name="Margin" />
       <RootProperty Name="ColumnDefinitions" />
+      <RootProperty Name="Name" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
-      <RootProperty Name="Name" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
       <RootMethod Name="GetColumnSpan" />
@@ -38,8 +38,8 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Content" />
       <RootProperty Name="CornerRadius" />
-      <RootProperty Name="FontWeight" />
       <RootProperty Name="Resources" />
+      <RootProperty Name="FontWeight" />
       <RootProperty Name="Flyout" />
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="BorderThickness" />
@@ -86,10 +86,10 @@
       <RootMethod Name="SetAlignBottomWithPanel" />
       <RootMethod Name="GetRightOf" />
       <RootMethod Name="SetRightOf" />
-      <RootMethod Name="GetAlignHorizontalCenterWith" />
-      <RootMethod Name="SetAlignHorizontalCenterWith" />
-      <RootMethod Name="GetAlignVerticalCenterWith" />
-      <RootMethod Name="SetAlignVerticalCenterWith" />
+      <RootMethod Name="GetAlignRightWith" />
+      <RootMethod Name="SetAlignRightWith" />
+      <RootMethod Name="GetAlignTopWith" />
+      <RootMethod Name="SetAlignTopWith" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="Name" />
@@ -100,8 +100,11 @@
       <RootProperty Name="Height" />
       <RootProperty Name="ItemTemplate" />
       <RootProperty Name="Tag" />
+      <RootProperty Name="SelectedIndex" />
+      <RootProperty Name="XYFocusKeyboardNavigation" />
       <RootEvent Name="ItemClick" />
       <RootEvent Name="GotFocus" />
+      <RootEvent Name="KeyDown" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
       <RootProperty Name="Mode" />
@@ -118,8 +121,9 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Orientation" />
       <RootProperty Name="Children" />
-      <RootProperty Name="XYFocusKeyboardNavigation" />
+      <RootProperty Name="Tag" />
       <RootEvent Name="Tapped" />
+      <RootEvent Name="GotFocus" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Primitives.FlyoutBase">
       <RootMethod Name="GetAttachedFlyout" />
@@ -151,15 +155,18 @@
       <RootProperty Name="Foreground" />
       <RootProperty Name="Margin" />
       <RootProperty Name="Text" />
+      <RootProperty Name="Tag" />
+      <RootProperty Name="BorderThickness" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="Width" />
       <RootProperty Name="Name" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="FontSize" />
-      <RootProperty Name="PlaceholderText" />
-      <RootProperty Name="BorderBrush" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="BorderThickness" />
-      <RootEvent Name="PointerEntered" />
+      <RootEvent Name="KeyDown" />
+      <RootEvent Name="PointerPressed" />
       <RootEvent Name="TextChanged" />
+      <RootEvent Name="PointerEntered" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.ResourceDictionary">
       <RootProperty Name="ThemeDictionaries" />
@@ -167,22 +174,13 @@
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
       <RootProperty Name="Color" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AutoSuggestBox">
-      <RootProperty Name="Name" />
-      <RootProperty Name="PlaceholderText" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Tag" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="ItemTemplate" />
-      <RootEvent Name="SuggestionChosen" />
-      <RootEvent Name="TextChanged" />
-      <RootEvent Name="GotFocus" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.CalendarView">
       <RootProperty Name="Name" />
+      <RootProperty Name="IsTodayHighlighted" />
       <RootProperty Name="Background" />
       <RootProperty Name="Tag" />
       <RootProperty Name="SelectionMode" />
+      <RootEvent Name="LostFocus" />
       <RootEvent Name="SelectedDatesChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TimePicker">
